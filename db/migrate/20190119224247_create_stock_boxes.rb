@@ -6,6 +6,7 @@ class CreateStockBoxes < ActiveRecord::Migration
       t.date  :date_changed
       t.date :date_due
       t.integer :user_id
+      t.timestamps null: false
     end
   end
 end
