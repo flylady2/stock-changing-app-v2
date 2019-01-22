@@ -8,7 +8,12 @@ class UsersController < ApplicationController
   post '/login' do
     #receives login form
     #finds the user
-    #logins user in (creates a session)
+
+    @user = User.find_by(email: params[:email])
+    if @user.authenticate(params[:password])
+      session[:user_id] = @user.idea   #logins user in (creates a session)
+      redirect "users/#{@user.id}"
+
   end
 
   get '/signup' do
