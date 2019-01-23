@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     #finds the user
     #binding.pry
     @user = User.find_by(email: params[:email])
-    binding.pry
+    #binding.pry
     if @user.authenticate(params[:password])
       session[:user_id] = @user.id   #logins user in (creates a session)
       redirect "users/#{@user.id}"
@@ -21,11 +21,11 @@ class UsersController < ApplicationController
 
   end
 
-  get '/signup' do
+  #get '/signup' do
 
-  end
+  #end
 
-  get 'users/:id' do
+  get '/users/:id' do
     "user's show page"
   end
 
