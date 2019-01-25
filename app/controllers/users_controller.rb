@@ -21,12 +21,26 @@ class UsersController < ApplicationController
 
   end
 
-  #get '/signup' do
+  get '/signup' do
+    erb :'/users/signup'
+  end
 
-  #end
+  post '/signup' do
+
+    #binding.pry
+    #create new user and persist them to the db
+    user = User.new(params)
+    if user.name != "" && user.email != "" && user.password != ""
+      user.save
+      redirect "/users/#{user.id}"
+    end
+    #binding.pry
+    #if params
+  end
 
   get '/users/:id' do
-    "user's show page"
+    @user = User.find_by(id: params[:id])
+    erb :'users/show'
   end
 
 
