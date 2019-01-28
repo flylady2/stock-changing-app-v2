@@ -20,11 +20,17 @@ class StockBoxesController < ApplicationController
       @stock_box = StockBox.new(params)
       @stock_box.user_id = current_user.id
       @stock_box.save
-      binding.pry
+      redirect "stock_boxes/#{@stock_box.id}"
     else
       redirect 'stock_boxes/new'
       #add failure message
     end
+  end
+
+  get "/stock_boxes/:id" do
+    @stock_box = StockBox.find(params[:id])
+    erb :'/stock_boxes/show'
+
   end
 
 end
