@@ -29,6 +29,7 @@ class StockBoxesController < ApplicationController
 
   get "/stock_boxes/:id" do
     @stock_box = StockBox.find(params[:id])
+    @stocks = Stock.all
     erb :'/stock_boxes/show'
 
   end
