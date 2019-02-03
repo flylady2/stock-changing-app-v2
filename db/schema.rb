@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190119225747) do
+ActiveRecord::Schema.define(version: 20190202231927) do
 
   create_table "stock_boxes", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20190119225747) do
 
   create_table "stocks", force: :cascade do |t|
     t.string   "name"
+    t.string   "box_name"
     t.integer  "stock_box_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
