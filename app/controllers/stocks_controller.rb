@@ -16,11 +16,13 @@ class StocksController < ApplicationController
       redirect '/login'
     end
     if params[:name] != ""
-      #binding.pry
       @stock = Stock.new(params)
+      #binding.pry
+      stock_box = StockBox.find_by(name: params["box_name"])
+      @stock.stock_box_id = stock_box.id
+      #binding.pry
+      @stock.save
       binding.pry
-      #@stock.stock_box.id = current_user.id  #need to fix this after I build form
-      #@stock.save
       redirect "stocks/#{@stock.id}"
     else
       redirect 'stocks/new'
