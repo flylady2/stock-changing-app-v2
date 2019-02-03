@@ -22,7 +22,7 @@ class StocksController < ApplicationController
       @stock.stock_box_id = stock_box.id
       #binding.pry
       @stock.save
-      binding.pry
+      #binding.pry
       redirect "stocks/#{@stock.id}"
     else
       redirect 'stocks/new'
