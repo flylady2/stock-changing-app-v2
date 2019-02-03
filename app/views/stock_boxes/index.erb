@@ -1,0 +1,7 @@
+<h2>Stock Boxes: </h2>
+
+<% @stock_boxes.each do |stock_box| %>
+
+    <li><a href="/stock_boxes/<%=stock_box.id%>"><%=stock_box.name%></li>
+<%#binding.pry%>
+<% end %>
