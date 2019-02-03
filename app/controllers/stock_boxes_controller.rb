@@ -1,6 +1,10 @@
 class StockBoxesController < ApplicationController
 
 
+  get '/stock_boxes' do
+    @stock_boxes = StockBox.all
+    erb :'stock_boxes/index'
+  end
 
   get '/stock_boxes/new' do
 
