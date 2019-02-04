@@ -2,8 +2,11 @@ class StockBoxesController < ApplicationController
 
 
   get '/stock_boxes' do
-    @stock_boxes = StockBox.all
-    erb :'stock_boxes/index'
+
+    if logged_in?
+      @stock_boxes = current_user.stock_boxes
+      erb :'stock_boxes/index'
+    end
   end
 
   get '/stock_boxes/new' do
@@ -35,7 +38,11 @@ class StockBoxesController < ApplicationController
     @stock_box = StockBox.find(params[:id])
     @stocks = Stock.all
     erb :'/stock_boxes/show'
-
   end
+
+  #get "/stock_boxes/:id/edit" do
+    #if logged_in?
+
+  #end
 
 end
