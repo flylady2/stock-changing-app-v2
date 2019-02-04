@@ -40,9 +40,14 @@ class StockBoxesController < ApplicationController
     erb :'/stock_boxes/show'
   end
 
-  #get "/stock_boxes/:id/edit" do
-    #if logged_in?
+   get "/stock_boxes/:id/edit" do
+     @stock_box = StockBox.find(params[:id])
+    if logged_in?
+      if @stock_box.user == current_user
+        erb :'/stock_boxes/edit'
+      end
+    end
 
-  #end
+  end
 
 end
