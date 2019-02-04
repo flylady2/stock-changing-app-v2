@@ -32,6 +32,7 @@ class StocksController < ApplicationController
 
   get "/stocks/:id" do
     @stock = Stock.find(params[:id])
+    #binding.pry
     erb :'/stocks/show'
 
   end
