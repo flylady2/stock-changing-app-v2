@@ -3,12 +3,16 @@
 <form class="" action="/stock_boxes/<%=@stock_box.id%>" method="POST">
   <input type="hidden" name="_method" value="patch">
   <label for="name">Name: </label>
-  <input type="text" name="name" value="@stock_box.name">
+  <input type="text" name="name" value="<%=@stock_box.name%>">
   <label for="content">Stocks: </label>
-  <input type="textarea" name="content" value="">
+  <input type="textarea" name="content" value="<% @stocks.each do |stock| %>
+    <% if stock.stock_box_id == @stock_box.id %>
+      <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></li>
+    <% end %>
+  <% end %>">
   <label for="date_changed">Changed: </label>
-  <input type="date" name="date_changed" value="@stock_box.date_changed">
+  <input type="date" name="date_changed" value="<%=@stock_box.date_changed%>">
   <label for="date_due">Due: </label>
-  <input type="date" name="date_due" value="@stock_box.date_due">
+  <input type="date" name="date_due" value="<%=@stock_box.date_due%>">
   <input type="submit" value="Create">
 </form>
