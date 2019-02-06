@@ -12,8 +12,10 @@ class UsersController < ApplicationController
     @user = User.find_by(email: params[:email])
     #binding.pry
     if @user.authenticate(params[:password])
-      
+
       session[:user_id] = @user.id   #logins user in (creates a session)
+      
+      #binding.pry
       redirect "users/#{@user.id}"
     else
       redirect '/login' #need to add failure message
