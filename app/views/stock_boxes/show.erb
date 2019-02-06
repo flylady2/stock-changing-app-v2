@@ -7,10 +7,8 @@
 <h3>Contents:</h3>
 <%#binding.pry%>
 <% @stocks.each do |stock| %>
-  <% if stock.stock_box_id == @stock_box.id %>
-    <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></li>
-  <% end %>
+  <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></li>
 <% end %>
 <br><br>
 <%#binding.pry%>
-<a href= "/stock_boxes/<%=@stock_box.id%>/edit">Edit Stock Box</a>
+<a href= "/stock_boxes/<%=@stock_box.id%>/edit">Edit Name or Dates</a>
