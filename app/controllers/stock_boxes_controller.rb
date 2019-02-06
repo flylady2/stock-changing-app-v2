@@ -36,19 +36,29 @@ class StockBoxesController < ApplicationController
 
   get "/stock_boxes/:id" do
     @stock_box = StockBox.find(params[:id])
-    @stocks = Stock.all
+    @stocks = @stock_box.stocks
     erb :'/stock_boxes/show'
   end
 
    get "/stock_boxes/:id/edit" do
      #binding.pry
      @stock_box = StockBox.find(params[:id])
-     @stocks = Stock.all
+     @stocks = @stock_box.stocks
       if logged_in?
         if @stock_box.user == current_user
           erb :'/stock_boxes/edit'
         end
       end
+    end
+
+    patch '/stock_boxes/:id' do
+       @stock_box = StockBox.find(params[:id])
+       if logged_in?
+         if @stock_box.user == current_user
+            @stock_box.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
+            redirect '/stock_boxes/:id'
+          end
+        end
     end
 
 end
