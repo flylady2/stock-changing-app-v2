@@ -6,16 +6,9 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    #receives login form
-    #finds the user
-    #binding.pry
     @user = User.find_by(email: params[:email])
-    #binding.pry
     if @user.authenticate(params[:password])
-
       session[:user_id] = @user.id   #logins user in (creates a session)
-      
-      #binding.pry
       redirect "users/#{@user.id}"
     else
       redirect '/login' #need to add failure message
@@ -29,9 +22,6 @@ class UsersController < ApplicationController
   end
 
   post '/users' do
-
-    #binding.pry
-    #create new user and persist them to the db
     user = User.new(params)
     if user.name != "" && user.email != "" && user.password != ""
       user.save
@@ -40,8 +30,6 @@ class UsersController < ApplicationController
     else
       redirect 'signup' #need to add a failure message
     end
-    #binding.pry
-    #if params
   end
 
   get '/users/:id' do

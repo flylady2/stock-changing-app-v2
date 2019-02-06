@@ -2,4 +2,11 @@
 <br></br>
 <h3>Email:<%=@user.email%></h3>
 
-<a href="/stock_boxes">Your Stock Boxes</a>
+<h2>Stock Boxes: </h2>
+<% @user.stock_boxes.each do |stock_box| %>
+
+    <li><a href="/stock_boxes/<%=stock_box.id%>"><%=stock_box.name%></a></li>
+    <li>Date Changed:<%=stock_box.date_changed%></li>
+    <li>Date Due:<%=stock_box.date_due%></li>
+    <br><br>
+<% end %>
