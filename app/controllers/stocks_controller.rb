@@ -37,4 +37,39 @@ class StocksController < ApplicationController
 
   end
 
+  get "/stocks/:id/edit" do
+    #binding.pry
+    @stock = Stock.find(params[:id])
+    if logged_in?
+      if @stock.user == current_user
+        erb :'/stocks/edit'
+      end
+    end
+   end
+
+   patch '/stocks/:id' do
+      @stock = Stock.find(params[:id])
+      if logged_in?
+        if @stock.user == current_user
+           @stock.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
+           redirect '/stocks/:id'
+         end
+       end
+   end
+
+   delete '/stocks/:id' do
+     @stock = Stock.find(params[:id])
+     if logged_in?
+       if @stock.user == current_user
+         @stock.destroy
+         redirect '/stocks'
+       else
+         #need to put in flash message
+       end
+     else
+       redirect '/login'
+     end
+   end
+
+
 end
