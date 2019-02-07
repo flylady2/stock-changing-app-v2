@@ -61,4 +61,18 @@ class StockBoxesController < ApplicationController
         end
     end
 
+    delete '/stock_boxes/:id' do
+      @stock_box = StockBox.find(params[:id])
+      if logged_in?
+        if @stock_box.user == current_user
+          @stock_box.destroy
+          redirect '/stock_boxes'
+        else
+          #need to put in flash message
+        end
+      else
+        redirect '/login'
+      end  
+    end
+
 end
