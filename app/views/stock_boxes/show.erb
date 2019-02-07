@@ -12,3 +12,10 @@
 <br><br>
 <%#binding.pry%>
 <a href= "/stock_boxes/<%=@stock_box.id%>/edit">Edit Name or Dates</a>
+<br><br>
+<form class="" action="/stock_boxes/<%=@stock_box.id%>" method = "POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" name="" value="Delete Stock Box">
+</form>
+<br><br>
+<a href="/stocks/new">Add stocks</a>
