@@ -15,7 +15,7 @@ class StocksController < ApplicationController
     if !logged_in?
       redirect '/login'
     end
-    if params[:name] != ""
+    if params[:name] != "" && params[:"box_name"] != ""
       @stock = Stock.new(params)
       #binding.pry
       stock_box = StockBox.find_by(name: params["box_name"])
