@@ -2,7 +2,7 @@
 <br></br>
 <h3>Email:<%=@user.email%></h3>
 
-<h2>Stock Boxes: </h2>
+<h2>Your stock boxes: </h2>
 <% @user.stock_boxes.each do |stock_box| %>
 
     <li><a href="/stock_boxes/<%=stock_box.id%>"><%=stock_box.name%></a></li>
@@ -10,3 +10,5 @@
     <li>Date Due:<%=stock_box.date_due%></li>
     <br><br>
 <% end %>
+<br><br>
+<h3><a href="/stock_boxes/new">Create a new stock box</a></h3>
