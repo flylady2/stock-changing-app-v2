@@ -19,11 +19,13 @@ class StocksController < ApplicationController
       @stock = Stock.new(params)
       #binding.pry
       stock_box = StockBox.find_by(name: params["box_name"])
-      @stock.stock_box_id = stock_box.id
+      if stock_box
+        @stock.stock_box_id = stock_box.id
       #binding.pry
-      @stock.save
+        @stock.save
       #binding.pry
-      redirect "stocks/#{@stock.id}"
+        redirect "stocks/#{@stock.id}"
+      end
     else
       redirect 'stocks/new'
       #add failure message
