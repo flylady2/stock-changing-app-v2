@@ -1,6 +1,12 @@
 class StocksController < ApplicationController
 
-
+  get '/stocks' do
+    #binding.pry
+    if logged_in?
+      @stocks = current_user.stocks
+      erb :'stocks/index'
+    end
+  end
 
   get '/stocks/new' do
 
@@ -32,14 +38,14 @@ class StocksController < ApplicationController
     end
   end
 
-  get "/stocks/:id" do
+  get '/stocks/:id' do
     @stock = Stock.find(params[:id])
     #binding.pry
     erb :'/stocks/show'
 
   end
 
-  get "/stocks/:id/edit" do
+  get '/stocks/:id/edit' do
     #binding.pry
     @stock = Stock.find(params[:id])
     if logged_in?
