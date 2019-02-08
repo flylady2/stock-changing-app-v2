@@ -1,3 +1,10 @@
 <h2>Stock Name:<%=@stock.name%></h2>
 <br></br>
 <h3>Box Name:<%=@stock.box_name%></h3>
+
+<a href="/stocks/<%=stocks/<%=@stock.id%>/edit">Edit</a>
+<br><br>
+<form class="" action="/stocks/<%=@stock.id%>" method= "POST">
+  <input type="hidden" name="_method" value= "DELETE">
+  <input type="submit" name= "" value="Delete stock">
+</form>
