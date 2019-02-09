@@ -3,9 +3,9 @@
 <form class="" action="/stocks/<%=@stock.id%>" method="POST">
   <input type="hidden" name="_method" value="patch">
   <label for="name">Name: </label>
-  <input type="text" name="name" value="@stock.name">
+  <input type="text" name="name" value="<%=@stock.name%>">
   <label for="box_name">Box Name: </label>
-  <input type="text" name="box_name" value="@stock.stock_box.name">
+  <input type="text" name="box_name" value="<%=@stock_box.name%>">
 
   <input type="submit" value="Edit">
 </form>
