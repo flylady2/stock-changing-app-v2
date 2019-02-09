@@ -48,6 +48,7 @@ class StocksController < ApplicationController
   get '/stocks/:id/edit' do
     #binding.pry
     @stock = Stock.find(params[:id])
+    binding.pry
     if logged_in?
       if @stock.user == current_user
         erb :'/stocks/edit'
