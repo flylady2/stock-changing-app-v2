@@ -61,18 +61,22 @@ class StocksController < ApplicationController
 
    patch '/stocks/:id' do
       @stock = Stock.find(params[:id])
+      @stock_box = StockBox.find(@stock.stock_box_id)
+      #binding.pry
       if logged_in?
-        if @stock.user == current_user
-           @stock.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
-           redirect '/stocks/:id'
+        if @stock_box.user == current_user
+           @stock.update({name: params[:name], box_name: params[:box_name]})
+           redirect "/stocks/#{@stock.id}"
          end
        end
    end
 
    delete '/stocks/:id' do
+     #binding.pry
      @stock = Stock.find(params[:id])
+     @stock_box = StockBox.find(@stock.stock_box_id)
      if logged_in?
-       if @stock.user == current_user
+       if @stock_box.user == current_user
          @stock.destroy
          redirect '/stocks'
        else
