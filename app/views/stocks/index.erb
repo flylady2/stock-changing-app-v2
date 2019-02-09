@@ -2,7 +2,7 @@
 <%#binding.pry%>
 <% @stocks.each do |stock| %>
   <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></li>
-  <%binding.pry%>
-  <li>In box:<%= stock.stock_box.name %></li>
+  <%#binding.pry%>
+  <li>In box:<%= stock.box_name %></li>
 <% end %>
 <br><br>
