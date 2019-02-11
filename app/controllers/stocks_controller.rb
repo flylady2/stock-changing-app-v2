@@ -68,7 +68,7 @@ class StocksController < ApplicationController
          @stock.destroy
          redirect '/stocks'
        else
-         flash[:message] = "Something went wrong. Please try again."
+         flash[:message] = "You do not have permission to delete this stock."
          redirect '/stocks'
        end
      else

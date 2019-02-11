@@ -10,10 +10,10 @@ class StockBoxesController < ApplicationController
   end
 
   get '/stock_boxes/new' do
-
     if logged_in?
       erb :'stock_boxes/new'
     else
+      flash[:message] = "You must be logged in to create a new stock box."
       redirect '/login'
     end
   end
@@ -23,14 +23,13 @@ class StockBoxesController < ApplicationController
       redirect '/login'
     end
     if params[:name] != ""
-      #binding.pry
       @stock_box = StockBox.new(params)
       @stock_box.user_id = current_user.id
       @stock_box.save
       redirect "stock_boxes/#{@stock_box.id}"
     else
+      flash[:message] = "Something went wrong. Please try again."
       redirect 'stock_boxes/new'
-      #add failure message
     end
   end
 
@@ -41,7 +40,6 @@ class StockBoxesController < ApplicationController
   end
 
    get "/stock_boxes/:id/edit" do
-     #binding.pry
      @stock_box = StockBox.find(params[:id])
      @stocks = @stock_box.stocks
       if logged_in?
@@ -68,11 +66,11 @@ class StockBoxesController < ApplicationController
           @stock_box.destroy
           redirect '/stock_boxes'
         else
-          #need to put in flash message
+          flash[:message] = "You do not have permission to delete this stock box."
         end
       else
         redirect '/login'
-      end  
+      end
     end
 
 end
