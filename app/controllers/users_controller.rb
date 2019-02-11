@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   get '/login' do #render the login form
-
     erb :'/users/login'
   end
 
@@ -12,9 +11,7 @@ class UsersController < ApplicationController
       redirect "users/#{@user.id}"
     else
       flash[:message] = "Email or password is incorrect. Please try again."
-      redirect '/login' #need to add failure message
-      #invalid credentials message
-      #redirect to login page
+      redirect '/login'
     end
   end
 
@@ -29,6 +26,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id #logging new user in
       redirect "/users/#{user.id}"
     else
+      flash[:message] = "You must have a valid name, email and password. Please try again."
       redirect 'signup' #need to add a failure message
     end
   end
