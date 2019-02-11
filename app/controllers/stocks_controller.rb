@@ -1,7 +1,6 @@
 class StocksController < ApplicationController
 
   get '/stocks' do
-    #binding.pry
     if logged_in?
       @stocks = current_user.stocks
       erb :'stocks/index'
@@ -9,10 +8,10 @@ class StocksController < ApplicationController
   end
 
   get '/stocks/new' do
-
     if logged_in?
       erb :'stocks/new'
     else
+      flash[:message] = "You must be logged in to create a new stock."
       redirect '/login'
     end
   end
@@ -23,35 +22,26 @@ class StocksController < ApplicationController
     end
     if params[:name] != "" && params[:"box_name"] != ""
       @stock = Stock.new(params)
-      #binding.pry
       stock_box = StockBox.find_by(name: params["box_name"])
       if stock_box
         @stock.stock_box_id = stock_box.id
-      #binding.pry
         @stock.save
-      #binding.pry
         redirect "stocks/#{@stock.id}"
       end
     else
+      flash[:message] = "Something went wrong. Please try again."
       redirect 'stocks/new'
-      #add failure message
     end
   end
 
   get '/stocks/:id' do
     @stock = Stock.find(params[:id])
-    #binding.pry
     erb :'/stocks/show'
-
   end
 
   get '/stocks/:id/edit' do
-    #binding.pry
     @stock = Stock.find(params[:id])
-    #binding.pry
-    #@stock_box. = @stock.stock_box_id
     @stock_box = StockBox.find(@stock.stock_box_id)
-    #binding.pry
     if logged_in?
       if @stock_box.user == current_user
         erb :'/stocks/edit'
@@ -62,7 +52,6 @@ class StocksController < ApplicationController
    patch '/stocks/:id' do
       @stock = Stock.find(params[:id])
       @stock_box = StockBox.find(@stock.stock_box_id)
-      #binding.pry
       if logged_in?
         if @stock_box.user == current_user
            @stock.update({name: params[:name], box_name: params[:box_name]})
@@ -72,7 +61,6 @@ class StocksController < ApplicationController
    end
 
    delete '/stocks/:id' do
-     #binding.pry
      @stock = Stock.find(params[:id])
      @stock_box = StockBox.find(@stock.stock_box_id)
      if logged_in?
@@ -80,7 +68,8 @@ class StocksController < ApplicationController
          @stock.destroy
          redirect '/stocks'
        else
-         #need to put in flash message
+         flash[:message] = "Something went wrong. Please try again."
+         redirect '/stocks'
        end
      else
        redirect '/login'
