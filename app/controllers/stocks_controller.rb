@@ -24,9 +24,14 @@ class StocksController < ApplicationController
       @stock = Stock.new(params)
       stock_box = StockBox.find_by(name: params["box_name"])
       if stock_box
-        @stock.stock_box_id = stock_box.id
-        @stock.save
-        redirect "stocks/#{@stock.id}"
+        if stock_box.user == current_user
+          @stock.stock_box_id = stock_box.id
+          @stock.save
+          redirect "stocks/#{@stock.id}"
+        else
+          flash[:message] = "You are not authorized to add stocks to this box."
+          redirect "/stock_boxes/#{stock_box.id}"
+        end
       end
     else
       flash[:message] = "Something went wrong. Please try again."
