@@ -2,7 +2,6 @@ class StockBoxesController < ApplicationController
 
 
   get '/stock_boxes' do
-
     if logged_in?
       @stock_boxes = current_user.stock_boxes
       erb :'stock_boxes/index'
@@ -58,13 +57,15 @@ class StockBoxesController < ApplicationController
     patch '/stock_boxes/:id' do
        @stock_box = StockBox.find(params[:id])
        if logged_in?
+         #binding.pry
          if @stock_box.user == current_user
+
             @stock_box.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
-            redirect '/stock_boxes/:id'
+            redirect "/stock_boxes/#{@stock_box.id}"
+          else
+            flash[:message] = "You are not authorized to update this stock box."
+            redirect "/stock_boxes/#{@stock_box.id}"
           end
-        else
-          flash[:message] = "You are not authorized to update this stock box."
-          redirect "/stock_boxes/#{@stock_box.id}"
         end
     end
 
