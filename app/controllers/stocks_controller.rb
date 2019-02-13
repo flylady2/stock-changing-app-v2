@@ -35,8 +35,13 @@ class StocksController < ApplicationController
   end
 
   get '/stocks/:id' do
-    @stock = Stock.find(params[:id])
-    erb :'/stocks/show'
+    if logged_in?
+      @stock = Stock.find(params[:id])
+      erb :'/stocks/show'
+    else
+      flash[:message] = "You must be logged in to see a stock."
+      redirect '/login'
+    end
   end
 
   get '/stocks/:id/edit' do
@@ -45,6 +50,9 @@ class StocksController < ApplicationController
     if logged_in?
       if @stock_box.user == current_user
         erb :'/stocks/edit'
+      else
+        flash[:message] = "You are not authorized to edit this stock."
+        redirect "/stocks/#{@stock.id}"
       end
     end
    end
@@ -56,8 +64,11 @@ class StocksController < ApplicationController
         if @stock_box.user == current_user
            @stock.update({name: params[:name], box_name: params[:box_name]})
            redirect "/stocks/#{@stock.id}"
-         end
-       end
+        else
+         flash[:message] = "You are not authorized to update this stock."
+         redirect "/stocks/#{@stock.id}"
+        end
+      end
    end
 
    delete '/stocks/:id' do
@@ -68,8 +79,8 @@ class StocksController < ApplicationController
          @stock.destroy
          redirect '/stocks'
        else
-         flash[:message] = "You do not have permission to delete this stock."
-         redirect '/stocks'
+         flash[:message] = "You are not authorized to delete this stock."
+         redirect "/stocks/#{@stock.id}"
        end
      else
        redirect '/login'
