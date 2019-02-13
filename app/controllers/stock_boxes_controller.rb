@@ -6,6 +6,9 @@ class StockBoxesController < ApplicationController
     if logged_in?
       @stock_boxes = current_user.stock_boxes
       erb :'stock_boxes/index'
+    else
+      flash[:message] = "You must be logged into see stock boxes."
+      redirect '/login'
     end
   end
 
@@ -45,6 +48,9 @@ class StockBoxesController < ApplicationController
       if logged_in?
         if @stock_box.user == current_user
           erb :'/stock_boxes/edit'
+        else
+          flash[:message] = "You are not authorized to edit this stock box."
+          redirect "/stock_boxes/#{@stock_box.id}"
         end
       end
     end
@@ -56,6 +62,9 @@ class StockBoxesController < ApplicationController
             @stock_box.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
             redirect '/stock_boxes/:id'
           end
+        else
+          flash[:message] = "You are not authorized to update this stock box."
+          redirect "/stock_boxes/#{@stock_box.id}"
         end
     end
 
@@ -67,6 +76,7 @@ class StockBoxesController < ApplicationController
           redirect '/stock_boxes'
         else
           flash[:message] = "You do not have permission to delete this stock box."
+          redirect "/stock_boxes/#{@stock_box.id}"
         end
       else
         redirect '/login'
