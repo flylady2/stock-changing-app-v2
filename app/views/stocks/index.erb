@@ -1,7 +1,7 @@
 <h3>Your stocks:</h3>
-<%binding.pry%>
+
 <% @stocks.each do |stock| %>
-  <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></li><br>
+  <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></a></li><br>
   <li>In box:<%= stock.box_name %></li>
   <br><br>
 <% end %>
