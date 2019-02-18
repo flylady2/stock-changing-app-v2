@@ -5,6 +5,6 @@ Clone the repo and run bundle install.  Then run shotgun to start a server.  The
 Usage
 You must have Ruby installed on your machine.
 Contributing
-Bug reports and pull requests are welcome on GitHub at https://github.com/flylady2/stock-changing-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/flylady2/stock-changing-app. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the http://contributor-covenant.org Contributor Covenant code of conduct.
 License
 The app is available as open source under the terms of the MIT License.
