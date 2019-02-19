@@ -43,7 +43,9 @@ class UsersController < ApplicationController
   end
 
   get "/users/:id/edit" do
-    @user = User.find(params[:id])
+    #binding.pry
+    @user = User.find_by(id: params[:id])
+
     if logged_in?
       if @user == current_user
         erb :'/users/edit'
@@ -61,14 +63,17 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       if logged_in?
         #binding.pry
-        if @stock_box.user == current_user
+        if @user == current_user
 
-           @stock_box.update({name: params[:name], date_changed: params[:date_changed], date_due: params[:date_due]})
-           redirect "/stock_boxes/#{@stock_box.id}"
+           @user.update({name: params[:name], email: params[:email], password: params[:password]})
+           redirect "/users/#{@user.id}"
          else
-           flash[:message] = "You are not authorized to update this stock box."
-           redirect "/stock_boxes/#{@stock_box.id}"
+           flash[:message] = "You are not authorized to update this profile."
+           redirect '/'
          end
+       else
+         flash[:message] = "You must be logged in to make changes"
+         redirect '/login'
        end
    end
 
