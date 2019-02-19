@@ -67,7 +67,7 @@ class UsersController < ApplicationController
         if @user == current_user
 
            @user.update({name: params[:name], email: params[:email]})
-           binding.pry
+           #binding.pry
            redirect "/users/#{@user.id}"
          else
            flash[:message] = "You are not authorized to update this profile."
