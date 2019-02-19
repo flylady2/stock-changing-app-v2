@@ -60,12 +60,14 @@ class UsersController < ApplicationController
    end
 
    patch '/users/:id' do
-      @user = User.find(params[:id])
+     #binding.pry
+      @user = User.find_by(id: params[:id])
       if logged_in?
         #binding.pry
         if @user == current_user
 
-           @user.update({name: params[:name], email: params[:email], password: params[:password]})
+           @user.update({name: params[:name], email: params[:email]})
+           binding.pry
            redirect "/users/#{@user.id}"
          else
            flash[:message] = "You are not authorized to update this profile."
