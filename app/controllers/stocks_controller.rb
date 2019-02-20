@@ -50,8 +50,7 @@ class StocksController < ApplicationController
   end
 
   get '/stocks/:id/edit' do
-    @stock = Stock.find(params[:id])
-    @stock_box = StockBox.find(@stock.stock_box_id)
+    stock_authorization
     if logged_in?
       if @stock_box.user == current_user
         erb :'/stocks/edit'
@@ -63,22 +62,20 @@ class StocksController < ApplicationController
    end
 
    patch '/stocks/:id' do
-      @stock = Stock.find(params[:id])
-      @stock_box = StockBox.find(@stock.stock_box_id)
-      if logged_in?
-        if @stock_box.user == current_user
-           @stock.update({name: params[:name], box_name: params[:box_name]})
-           redirect "/stocks/#{@stock.id}"
-        else
+     stock_authorization
+     if logged_in?
+       if @stock_box.user == current_user
+         @stock.update({name: params[:name], box_name: params[:box_name]})
+         redirect "/stocks/#{@stock.id}"
+       else
          flash[:message] = "You are not authorized to update this stock."
          redirect "/stocks/#{@stock.id}"
-        end
+       end
       end
    end
 
    delete '/stocks/:id' do
-     @stock = Stock.find(params[:id])
-     @stock_box = StockBox.find(@stock.stock_box_id)
+     stock_authorization
      if logged_in?
        if @stock_box.user == current_user
          @stock.destroy
