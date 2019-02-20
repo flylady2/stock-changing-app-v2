@@ -42,17 +42,16 @@ class StockBoxesController < ApplicationController
   end
 
    get "/stock_boxes/:id/edit" do
-     @stock_box = StockBox.find(params[:id])
-     @stocks = @stock_box.stocks
-      if logged_in?
-        if @stock_box.user == current_user
-          erb :'/stock_boxes/edit'
-        else
-          flash[:message] = "You are not authorized to edit this stock box."
-          redirect "/stock_boxes/#{@stock_box.id}"
-        end
-      end
-    end
+     stock_box_authorization
+     if logged_in?
+       if @stock_box.user == current_user
+         erb :'/stock_boxes/edit'
+       else
+         flash[:message] = "You are not authorized to edit this stock box."
+         redirect "/stock_boxes/#{@stock_box.id}"
+       end
+     end
+   end
 
     patch '/stock_boxes/:id' do
        @stock_box = StockBox.find(params[:id])
