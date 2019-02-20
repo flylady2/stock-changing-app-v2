@@ -28,6 +28,18 @@ class ApplicationController < Sinatra::Base
       User.find_by(id: session[:user_id])
     end
 
+    def stock_box_authorization
+      @stock_box = StockBox.find(params[:id])
+      @stocks = @stock_box.stocks
+    end
+
+    def stock_authorization
+      @stock = Stock.find(params[:id])
+      @stock_box = StockBox.find(@stock.stock_box_id)
+    end
+
+
+
   end
 
 end
