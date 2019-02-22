@@ -1,0 +1,6 @@
+<h3>Stock List:</h3>
+
+<% @stocks.each do |stock| %>
+  <li><a href="/stocks/<%=stock.id%>"><%= stock.name %></a></li><br>
+  <br><br>
+<% end %>
