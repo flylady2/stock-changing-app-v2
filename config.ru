@@ -10,4 +10,5 @@ use Rack::MethodOverride
 use UsersController
 use StockBoxesController
 use StocksController
+use LabsController
 run ApplicationController
