@@ -1,4 +1,4 @@
-class CreateStockBoxes < ActiveRecord::Migration
+class CreateStockBoxesTable < ActiveRecord::Migration
   def change
     create_table :stock_boxes do |t|
       t.string :name
@@ -8,5 +8,6 @@ class CreateStockBoxes < ActiveRecord::Migration
       t.integer :user_id
       t.timestamps null: false
     end
+
   end
 end

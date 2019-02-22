@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190202231927) do
+ActiveRecord::Schema.define(version: 20190222211552) do
+
+  create_table "labs", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "stock_boxes", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +39,7 @@ ActiveRecord::Schema.define(version: 20190202231927) do
     t.string   "name"
     t.text     "email"
     t.string   "password_digest"
+    t.integer  "lab_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
