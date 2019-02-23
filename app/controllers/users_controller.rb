@@ -22,13 +22,18 @@ class UsersController < ApplicationController
   post '/users' do
     user = User.new(params)
     #binding.pry
-    if user.name != "" && user.email != "" && user.password != nil
-      user.save
-      session[:user_id] = user.id #logging new user in
-      redirect "/users/#{user.id}"
+    if user.valid?
+      if user.name != "" && user.email != "" && user.password != nil
+        user.save
+        session[:user_id] = user.id #logging new user in
+        redirect "/users/#{user.id}"
+      else
+        flash[:message] = "You must have a valid name, email and password. Please try again."
+        redirect '/signup' #need to add a failure message
+      end
     else
-      flash[:message] = "You must have a valid name, email and password. Please try again."
-      redirect '/signup' #need to add a failure message
+      flash[:message] = "That email is already taken."
+      redirect '/signup'
     end
   end
 
